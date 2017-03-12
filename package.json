@@ -1,6 +1,6 @@
 {
   "name": "sodium-up",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Convenience wrapper around sodium-native",
   "main": "index.js",
   "dependencies": {
