@@ -1,0 +1,32 @@
+{
+  "name": "sodium-up",
+  "version": "0.0.0",
+  "description": "Convenicence wrapper around sodium-native",
+  "main": "index.js",
+  "dependencies": {
+    "sodium-native": "^1.6.0"
+  },
+  "devDependencies": {
+    "buffer-alloc": "^1.1.0",
+    "tape": "^4.6.3"
+  },
+  "scripts": {
+    "test": "tape test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emilbayes/sodium-up.git"
+  },
+  "keywords": [
+    "sodium",
+    "buffer",
+    "easy",
+    "convenience"
+  ],
+  "author": "Emil Bay <github@tixz.dk>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emilbayes/sodium-up/issues"
+  },
+  "homepage": "https://github.com/emilbayes/sodium-up#readme"
+}
