@@ -1,5 +1,7 @@
 # `sodium-up`
 
+[![Build Status](https://travis-ci.org/emilbayes/sodium-up.svg?branch=master)](https://travis-ci.org/emilbayes/sodium-up)
+
 > Convenicence wrapper around `sodium-native`
 
 ## Usage
