@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/emilbayes/sodium-up.svg?branch=master)](https://travis-ci.org/emilbayes/sodium-up)
 
-> Convenience wrapper around `sodium-native`
+> Convenience wrapper around `sodium-universal`
 
 ## Usage
 

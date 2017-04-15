@@ -1,5 +1,5 @@
 'use strict'
-var sodium = require('sodium-native')
+var sodium = require('sodium-universal')
 
 // randombytes
 
