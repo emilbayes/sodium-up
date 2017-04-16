@@ -61,10 +61,18 @@ Will return `instance` for easy chaining
 
 **Constants**:
 
-- `sodium.crypto_pwhash_ALG_ARGON2I13`
+- `sodium.crypto_pwhash_ALG_DEFAULT`
+- `sodium.crypto_pwhash_BYTES_MIN`
+- `sodium.crypto_pwhash_BYTES_MAX`
+- `sodium.crypto_pwhash_PASSWD_MIN`
+- `sodium.crypto_pwhash_PASSWD_MAX`
 - `sodium.crypto_pwhash_SALTBYTES`
 - `sodium.crypto_pwhash_STRBYTES`
 - `sodium.crypto_pwhash_STRPREFIX`
+- `sodium.crypto_pwhash_OPSLIMIT_MIN`
+- `sodium.crypto_pwhash_OPSLIMIT_MAX`
+- `sodium.crypto_pwhash_MEMLIMIT_MIN`
+- `sodium.crypto_pwhash_MEMLIMIT_MAX`
 - `sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE`
 - `sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE`
 - `sodium.crypto_pwhash_OPSLIMIT_MODERATE`

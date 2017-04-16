@@ -70,10 +70,20 @@ exports.crypto_generichash_instance = function (key, outputLength) {
 
 // pwhash
 
-exports.crypto_pwhash_ALG_ARGON2I13 = sodium.crypto_pwhash_ALG_ARGON2I13
+exports.crypto_pwhash_ALG_ARGON2I13 = sodium.crypto_pwhash_ALG_ARGON2I13 // Deprecated
+
+exports.crypto_pwhash_ALG_DEFAULT = sodium.crypto_pwhash_ALG_DEFAULT
+exports.crypto_pwhash_BYTES_MIN = sodium.crypto_pwhash_BYTES_MIN
+exports.crypto_pwhash_BYTES_MAX = sodium.crypto_pwhash_BYTES_MAX
+exports.crypto_pwhash_PASSWD_MIN = sodium.crypto_pwhash_PASSWD_MIN
+exports.crypto_pwhash_PASSWD_MAX = sodium.crypto_pwhash_PASSWD_MAX
 exports.crypto_pwhash_SALTBYTES = sodium.crypto_pwhash_SALTBYTES
 exports.crypto_pwhash_STRBYTES = sodium.crypto_pwhash_STRBYTES
 exports.crypto_pwhash_STRPREFIX = sodium.crypto_pwhash_STRPREFIX
+exports.crypto_pwhash_OPSLIMIT_MIN = sodium.crypto_pwhash_OPSLIMIT_MIN
+exports.crypto_pwhash_OPSLIMIT_MAX = sodium.crypto_pwhash_OPSLIMIT_MAX
+exports.crypto_pwhash_MEMLIMIT_MIN = sodium.crypto_pwhash_MEMLIMIT_MIN
+exports.crypto_pwhash_MEMLIMIT_MAX = sodium.crypto_pwhash_MEMLIMIT_MAX
 exports.crypto_pwhash_OPSLIMIT_INTERACTIVE = sodium.crypto_pwhash_OPSLIMIT_INTERACTIVE
 exports.crypto_pwhash_MEMLIMIT_INTERACTIVE = sodium.crypto_pwhash_MEMLIMIT_INTERACTIVE
 exports.crypto_pwhash_OPSLIMIT_MODERATE = sodium.crypto_pwhash_OPSLIMIT_MODERATE
