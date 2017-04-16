@@ -5,6 +5,7 @@ var sodium = require('sodium-universal')
 
 // randombytes_buf(output)
 exports.randombytes_buf = function (output) {
+  // Implicit output is either a Buffer or a Number, or we let it fail in sodium
   if (Number.isSafeInteger(output)) {
     output = Buffer.allocUnsafe(output)
   }
@@ -26,17 +27,13 @@ exports.crypto_generichash_KEYBYTES = sodium.crypto_generichash_KEYBYTES
 
 // var output = crypto_generichash([output], input, [key])
 exports.crypto_generichash = function (output, input, key) {
-  if (key == null && input == null) {
+  if (output != null && input == null && key == null) {
     input = output
     output = null
   }
 
-  if (Number.isSafeInteger(output)) {
-    output = Buffer.allocUnsafe(output)
-  }
-  if (output == null) {
-    output = Buffer.allocUnsafe(sodium.crypto_generichash_BYTES)
-  }
+  if (output == null) output = Buffer.allocUnsafe(sodium.crypto_generichash_BYTES)
+  else if (Number.isSafeInteger(output)) output = Buffer.alloc(output)
 
   sodium.crypto_generichash(output, input, key)
 
@@ -60,9 +57,9 @@ exports.crypto_generichash_instance = function (key, outputLength) {
       return this
     },
     final: function (output) {
-      if (output == null) {
-        output = Buffer.allocUnsafe(outputLength)
-      }
+      if (output == null && outputLength == sodium.crypto_generichash_BYTES) output = Buffer.allocUnsafe(outputLength)
+      else if (output == null && outputLength != sodium.crypto_generichash_BYTES) output = Buffer.alloc(outputLength)
+      else if (Number.isSafeInteger(output)) output = Buffer.alloc(output)
 
       instance.final(output)
 
@@ -85,30 +82,29 @@ exports.crypto_pwhash_OPSLIMIT_SENSITIVE = sodium.crypto_pwhash_OPSLIMIT_SENSITI
 exports.crypto_pwhash_MEMLIMIT_SENSITIVE = sodium.crypto_pwhash_MEMLIMIT_SENSITIVE
 exports.crypto_pwhash_PRIMITIVE = sodium.crypto_pwhash_PRIMITIVE
 
-// var output = crypto_pwhash(output, password, salt, opslimit, memlimit, algorithm)
+// var output = crypto_pwhash([output], password, salt, opslimit, memlimit, algorithm)
 exports.crypto_pwhash = function (output, password, salt, opslimit, memlimit, algorithm) {
-  if (Number.isSafeInteger(output)) {
-    output = Buffer.allocUnsafe(output)
+  // Only optional argument is output, so all other arguments must be set
+  if (algorithm == null) {
+    return exports.crypto_pwhash(null, output, password, salt, opslimit, memlimit)
   }
+
+  if (output == null) output = Buffer.allocUnsafe(32) // 32 is the number used by crypto_pwhash_str internally
+  else if (Number.isSafeInteger(output)) output = Buffer.alloc(output)
 
   sodium.crypto_pwhash(output, password, salt, opslimit, memlimit, algorithm)
 
   return output
 }
 
-// var output = crypto_pwhash_str([output,] password, opslimit, memlimit)
+// var output = crypto_pwhash_str([output], password, opslimit, memlimit)
 exports.crypto_pwhash_str = function (output, password, opslimit, memlimit) {
   if (memlimit == null) {
     return exports.crypto_pwhash_str(null, output, password, opslimit)
   }
 
-  if (output == null) {
-    output = exports.crypto_pwhash_STRBYTES
-  }
-
-  if (Number.isSafeInteger(output)) {
-    output = Buffer.allocUnsafe(output)
-  }
+  if (output == null) output = Buffer.allocUnsafe(sodium.crypto_pwhash_STRBYTES)
+  else if (Number.isSafeInteger(output)) output = Buffer.alloc(output)
 
   sodium.crypto_pwhash_str(output, password, opslimit, memlimit)
 

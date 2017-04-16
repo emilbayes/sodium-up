@@ -74,10 +74,10 @@ Will return `instance` for easy chaining
 - `sodium.crypto_pwhash_PRIMITIVE`
 
 
-#### `var output = sodium.crypto_pwhash(output, password, salt, opslimit, memlimit, algorithm)`
+#### `var output = sodium.crypto_pwhash([output], password, salt, opslimit, memlimit, algorithm)`
 `output` can either be a Buffer or integer length. Will return `output`
 
-#### `var output = sodium.crypto_pwhash_str([output,] password, opslimit, memlimit)`
+#### `var output = sodium.crypto_pwhash_str([output], password, opslimit, memlimit)`
 `output` is optional, but can be Buffer or integer length. Defaults to Buffer of `sodium.crypto_pwhash_STRBYTES` length. Will return `output`
 
 #### `var bool = sodium.crypto_pwhash_str_verify(str, password)`
