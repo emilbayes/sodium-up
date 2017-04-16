@@ -23,6 +23,41 @@ See [`sodium-native`](https://github.com/mafintosh/sodium-native) for complete d
 #### `var output = sodium.randombytes_buf(output)`
 `output` can either be a Buffer or integer length. Will return `output`
 
+### `sodium.crypto_sign_*`
+
+**Constants**:
+
+- `sodium.crypto_sign_SEEDBYTES`
+- `sodium.crypto_sign_PUBLICKEYBYTES`
+- `sodium.crypto_sign_SECRETKEYBYTES`
+- `sodium.crypto_sign_BYTES`
+
+#### `var {publicKey, secretKey} = crypto_sign_seed_keypair([publicKey, secretKey], seed)`
+`publicKey` and `secretKey` are optional, but can be Buffer or integer length.
+Defaults to Buffer of `sodium.crypto_sign_PUBLICKEYBYTES` and `sodium.crypto_sign_SECRETKEYBYTES` length.
+Will return and object with `{publicKey, secretKey}`
+
+#### `var {publicKey, secretKey} = crypto_sign_keypair([publicKey, secretKey])`
+`publicKey` and `secretKey` are optional, but can be Buffer or integer length.
+Defaults to Buffer of `sodium.crypto_sign_PUBLICKEYBYTES` and `sodium.crypto_sign_SECRETKEYBYTES` length.
+Will return and object with `{publicKey, secretKey}`
+
+#### `var signedMessage = crypto_sign([signedMessage], message, secretKey)`
+`signedMessage` is optional, but can be Buffer or integer length. Defaults to Buffer of `sodium.crypto_sign_BYTES` length.
+Will return `signedMessage`
+
+#### `var boolOrBuf = crypto_sign_open([message], signedMessage, publicKey)`
+`message` is optional, but can be Buffer or integer length. Defaults to Buffer of `signedMessage.length - sodium.crypto_sign_BYTES` length.
+Will return `false` if the signature is invalid or `message` otherwise
+
+#### `var signature = crypto_sign_detached([signature], message, secretKey)`
+`signature` is optional, but can be Buffer or integer length. Defaults to Buffer of `sodium.crypto_sign_BYTES` length.
+Will return `signature`
+
+#### `var bool = crypto_sign_verify_detached(signature, message, publicKey)`
+Alias to [`sodium-native#crypto_sign_verify_detached`](https://github.com/sodium-friends/sodium-native#var-bool--crypto_sign_verify_detachedsignature-message-publickey)
+
+
 ### `sodium.crypto_generichash_*`
 
 **Constants**:

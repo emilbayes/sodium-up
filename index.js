@@ -15,6 +15,96 @@ exports.randombytes_buf = function (output) {
   return output
 }
 
+// crypto_sign
+
+exports.crypto_sign_SEEDBYTES = sodium.crypto_sign_SEEDBYTES
+exports.crypto_sign_PUBLICKEYBYTES = sodium.crypto_sign_PUBLICKEYBYTES
+exports.crypto_sign_SECRETKEYBYTES = sodium.crypto_sign_SECRETKEYBYTES
+exports.crypto_sign_BYTES = sodium.crypto_sign_BYTES
+
+// var {publicKey, secretKey} = crypto_sign_seed_keypair([publicKey, secretKey], seed)
+exports.crypto_sign_seed_keypair = function (publicKey, secretKey, seed) {
+  if (publicKey != null && secretKey == null && seed == null) {
+    seed = publicKey
+    publicKey = null
+  }
+
+  if (publicKey == null) publicKey = Buffer.allocUnsafe(sodium.crypto_sign_PUBLICKEYBYTES)
+  else if (Number.isSafeInteger(publicKey)) publicKey = Buffer.alloc(publicKey)
+  if (secretKey == null) secretKey = Buffer.allocUnsafe(sodium.crypto_sign_SECRETKEYBYTES)
+  else if (Number.isSafeInteger(secretKey)) secretKey = Buffer.alloc(secretKey)
+
+
+  sodium.crypto_sign_seed_keypair(publicKey, secretKey, seed)
+
+  return {publicKey: publicKey, secretKey: secretKey}
+}
+
+// var {publicKey, secretKey} = crypto_sign_keypair([publicKey, secretKey])
+exports.crypto_sign_keypair = function (publicKey, secretKey) {
+  if (publicKey == null) publicKey = Buffer.allocUnsafe(sodium.crypto_sign_PUBLICKEYBYTES)
+  else if (Number.isSafeInteger(publicKey)) publicKey = Buffer.alloc(publicKey)
+  if (secretKey == null) secretKey = Buffer.allocUnsafe(sodium.crypto_sign_SECRETKEYBYTES)
+  else if (Number.isSafeInteger(secretKey)) secretKey = Buffer.alloc(secretKey)
+
+
+  sodium.crypto_sign_keypair(publicKey, secretKey)
+
+  return {publicKey: publicKey, secretKey: secretKey}
+}
+
+// var signedMessage = crypto_sign([signedMessage], message, secretKey)
+exports.crypto_sign = function (signedMessage, message, secretKey) {
+  if (signedMessage != null && message != null && secretKey == null) {
+    secretKey = message
+    message = signedMessage
+    signedMessage = null
+  }
+
+  if (signedMessage == null) signedMessage = Buffer.allocUnsafe(message.length + sodium.crypto_sign_BYTES)
+  else if (Number.isSafeInteger(signedMessage)) signedMessage = Buffer.alloc(signedMessage)
+
+  sodium.crypto_sign(signedMessage, message, secretKey)
+
+  return signedMessage
+}
+
+// var boolOrBuf = crypto_sign_open([message], signedMessage, publicKey)
+exports.crypto_sign_open = function (message, signedMessage, publicKey) {
+  if (message != null && signedMessage != null && publicKey == null) {
+    publicKey = signedMessage
+    signedMessage = message
+    message = null
+  }
+
+  if (message == null) message = Buffer.allocUnsafe(signedMessage.length - sodium.crypto_sign_BYTES)
+  else if (Number.isSafeInteger(message)) message = Buffer.alloc(message)
+
+  var res = sodium.crypto_sign_open(message, signedMessage, publicKey)
+
+  if (res === false) return false
+  return message
+}
+
+// var signature = crypto_sign_detached([signature], message, secretKey)
+exports.crypto_sign_detached = function (signature, message, secretKey) {
+  if (signature != null && message != null && secretKey == null) {
+    secretKey = message
+    message = signature
+    signature = null
+  }
+
+  if (signature == null) signature = Buffer.allocUnsafe(sodium.crypto_sign_BYTES)
+  else if (Number.isSafeInteger(signature)) signature = Buffer.alloc(signature)
+
+  sodium.crypto_sign_detached(signature, message, secretKey)
+
+  return signature
+}
+
+// var bool = crypto_sign_verify_detached(signature, message, publicKey)
+exports.crypto_sign_verify_detached = sodium.crypto_sign_verify_detached
+
 // crypto_generichash
 
 exports.crypto_generichash_PRIMITIVE = sodium.crypto_generichash_PRIMITIVE
